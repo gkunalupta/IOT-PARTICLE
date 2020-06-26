@@ -139,8 +139,8 @@ void setup()
     Serial.begin(9600);
   Serial.println("Adafruit GPS library basic test!");
   BLE.scan(scanResults, SCAN_RESULT_MAX);
- ## config.mode(SystemSleepMode::STOP);
-   ## config.duration(10s);
+ config.mode(SystemSleepMode::STOP);
+    config.duration(10s);
 
 }
 
