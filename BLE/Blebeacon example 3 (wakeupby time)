@@ -33,51 +33,70 @@ SystemSleepConfiguration config;
      
 void scannedadvdata()
 {
-    Particle.publish("scanning data");
-   // number of bytes in advertsing data is stored in len and advertising data is stored in custom_data
+   Particle.publish("scanning data");
+   delay(1000);
+    /* Serial.println(BLE.scan(scanResults, SCAN_RESULT_MAX));
+    this statement do the scanning , if in scanning it detects ble beacon then
+    all the  scanned data can be accesed by scanResults object.
+    and this function does not return untill it scans for any beacon device*/
+   int count = BLE.scan(scanResults, SCAN_RESULT_MAX);
+   itoa(count,buffera,10);
+   Particle.publish("noofdevices",buffera);
+   delay(1000);
+   Serial.println(count);
+   if(count)
+    {  
+    Serial.println("a ble device is found ");
+    Particle.publish("a ble device is found ");
+    // number of bytes in advertsing data is stored in len and advertising data is stored in custom_data
     int len=scanResults->advertisingData.customData(custom_data, sizeof(custom_data));
     itoa(len,nobadv,10);
-  //  Particle.publish("noofbytes",nobadv);
-//   delay(1000);
-   //printing uuid 
+    //printing uuid 
     snprintf(uuid, sizeof(uuid), "%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
     custom_data[4], custom_data[5], custom_data[6], custom_data[7], custom_data[8], custom_data[9], 
     custom_data[10], custom_data[11], custom_data[12],custom_data[13], custom_data[14], custom_data[15],
     custom_data[16], custom_data[17], custom_data[18], custom_data[19]);
-  //  Particle.publish("uuid",uuid);
-//   delay(1000);
     //no of bytes of address is stored in the addrlen and address is stored in addr
     int addrlen = scanResults->address.toString(addr,sizeof(addr));
-    //Particle.publish("address",addr);
-   // delay(1000);
+    Serial.print("address->");
+    Serial.println(addr);
     itoa(addrlen,nobadr,10);
-  //  Particle.publish("addrlen",nobadr);         
-  //  delay(1000);
     //major
     int major = custom_data[20] * 256 + custom_data[21];
     itoa(major,ma,10);
-   // Particle.publish("major",ma);
-   // delay(1000);
     //minor
-   int  minor = custom_data[22] * 256 + custom_data[23];
-   itoa(minor,mi,10);
- //  Particle.publish("minor",mi);
- //  delay(1000);
-   //power
-   int power = (int8_t)custom_data[24];
-   itoa(power,po,10);
-  // Particle.publish("power",po);
- //  delay(1000);
+    int  minor = custom_data[22] * 256 + custom_data[23];
+    itoa(minor,mi,10);
+    //power
+    int power = (int8_t)custom_data[24];
+    itoa(power,po,10);
     //rssi
-   rssi += scanResults->rssi;
-   rssi_count++;
-   itoa(rssi/rssi_count,rs,10);
-   //Particle.publish("rssi",rs);
-  //delay(1000);
-        //rssi_count++;
-
+    rssi += scanResults->rssi;
+    rssi_count++;
+    itoa(rssi/rssi_count,rs,10);
+    //rssi_count++;
+}
+else
+{ 
+    
+    Serial.println(" no  ble device is found");
+    Particle.publish(" no ble device is found");
+    delay(1000);
+    memset( nobadv,0, sizeof(nobadv));
+    memset( rs,0, sizeof(rs));
+    memset(addr ,0, sizeof(addr));
+    memset( nobadr,0, sizeof(nobadr));
+    memset( buffera,0, sizeof(buffera));
+    memset(uuid ,0, sizeof(uuid));
+    memset( ma,0, sizeof(ma));
+    memset(mi ,0, sizeof(mi));
+    memset( po,0, sizeof(po));
+    memset(custom_data,0,sizeof(custom_data));
+    scanResults->advertisingData.clear();
 
 }
+}
+
 
     bool isBeacon(const BleScanResult *scanResults)
 {
