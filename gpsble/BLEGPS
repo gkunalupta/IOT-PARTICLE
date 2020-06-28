@@ -1,6 +1,3 @@
-
-
-
 const size_t SCAN_RESULT_MAX = 30;
 /*BlescanResult is the class in which the data of the scanned beacons is stored.
 scanResults is the object of that class which is created in the form of array , 
