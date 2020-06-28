@@ -1,4 +1,4 @@
-
+/* ************************************************************ble beacon code *************************************************/
 
 const size_t SCAN_RESULT_MAX = 30;
 /*BlescanResult is the class in which the data of the scanned beacons is stored.
