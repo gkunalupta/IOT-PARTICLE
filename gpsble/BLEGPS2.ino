@@ -484,7 +484,7 @@ void gpsdata()
           }  //end of scan beacon if
  } //end of while gps.fix()
     while(!GPS.fix)
- {
+    {
     Serial.println("waiting to fix");
     Particle.publish("Waiting to fix");
     delay(1000);
