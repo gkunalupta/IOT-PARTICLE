@@ -72,5 +72,4 @@ void loop()
         Particle.publish("rssi",rs);
        delay(1000);
         //rssi_count++;
-
     }
