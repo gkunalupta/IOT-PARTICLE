@@ -100,7 +100,6 @@ else
 }
 }
 
-
     bool isBeacon(const BleScanResult *scanResults)
 {
   
