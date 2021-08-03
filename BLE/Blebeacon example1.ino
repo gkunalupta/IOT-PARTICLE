@@ -10,7 +10,6 @@ void setup()
 }
 
 void loop()
-
 {
     delay(1000);
     uint8_t custom_data[BLE_MAX_ADV_DATA_LEN];   //BLE_MAX_ADV_DATA_LEN=31bytes
