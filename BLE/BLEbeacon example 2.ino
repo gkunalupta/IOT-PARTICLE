@@ -30,7 +30,7 @@ SystemSleepConfiguration config;
      char mi[5];
      //variable for storing the power of the beacon from the advertising data
      char po[5];
-     
+    
 void scannedadvdata()
 {
     Particle.publish("scanning data");
