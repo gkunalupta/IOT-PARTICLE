@@ -30,7 +30,7 @@ uint32_t timer = millis();
 //char time[10],date[10],lati[20],longi[20],fix[3],fiq[5],fixvalue[5];
 void gpsinit()
 {
-        
+       
   // 9600 NMEA is the default baud rate for Adafruit MTK GPS's- some use 4800
   GPS.begin(9600);
   // uncomment this line to turn on RMC (recommended minimum) and GGA (fix data) including altitude
